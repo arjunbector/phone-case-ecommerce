@@ -13,9 +13,6 @@ import { Check } from "lucide-react";
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
-  useEffect(() => {
-    setTheme("light");
-  }, []);
   return (
     <main className="bg-slate-50 dark:bg-slate-950 min-h-screen">
       <section>
@@ -54,11 +51,31 @@ export default function Home() {
               </ul>
               <div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
                 <div className="flex -space-x-4">
-                  <Image className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover" src={user1} alt="user image" />
-                  <Image className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover" src={user2} alt="user image" />
-                  <Image className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover" src={user3} alt="user image" />
-                  <Image className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover" src={user4} alt="user image" />
-                  <Image className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover" src={user5} alt="user image" />
+                  <Image
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover"
+                    src={user1}
+                    alt="user image"
+                  />
+                  <Image
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover"
+                    src={user2}
+                    alt="user image"
+                  />
+                  <Image
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover"
+                    src={user3}
+                    alt="user image"
+                  />
+                  <Image
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover"
+                    src={user4}
+                    alt="user image"
+                  />
+                  <Image
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-green-100 object-cover"
+                    src={user5}
+                    alt="user image"
+                  />
                 </div>
               </div>
             </div>
