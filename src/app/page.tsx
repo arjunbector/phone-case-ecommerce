@@ -14,6 +14,7 @@ import { useTheme } from "next-themes";
 import { Check, Star, StarHalfIcon } from "lucide-react";
 import Phone from "@/components/Phone";
 import { Icons } from "@/components/Icons";
+import Reviews from "@/components/Reviews";
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
@@ -208,6 +209,9 @@ export default function Home() {
             </div>
           </div>
         </MaxWidthWrapper>
+        <div className="pt-16">
+          <Reviews/>
+        </div>
       </section>
     </main>
   );
