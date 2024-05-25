@@ -1,21 +1,23 @@
-"use client";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { ArrowRight, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const Navbar = () => {
-  const { theme, setTheme } = useTheme();
-  const user = undefined;
-  const isAdmin = false;
-  const handleThemeChange = () => {
-    if (theme == "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-  };
+const Navbar = async () => {
+
+  const {getUser} = getKindeServerSession()
+  const user = await getUser()
+  // const { theme, setTheme } = useTheme();
+  const isAdmin = user?.email === process.env.ADMIN_EMAIL
+  // const handleThemeChange = () => {
+  //   if (theme == "dark") {
+  //     setTheme("light");
+  //   } else {
+  //     setTheme("dark");
+  //   }
+  // };
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 dark:border-gray-500 bg-white/75 dark:bg-slate-900 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -24,7 +26,7 @@ const Navbar = () => {
             case <span className="text-green-600">Cobra</span>
           </Link>
           <div className="h-full flex items-center space-x-4">
-            <button
+            {/* <button
               onClick={() => {
                 handleThemeChange();
               }}
@@ -34,11 +36,11 @@ const Navbar = () => {
               ) : (
                 <Moon className="h-5 w-5" />
               )}
-            </button>
+            </button> */}
             {user ? (
               <>
                 <Link
-                  href="/api/aut/logout"
+                  href="/api/auth/logout"
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",
@@ -48,7 +50,7 @@ const Navbar = () => {
                 </Link>
                 {isAdmin && (
                   <Link
-                    href="/api/aut/logout"
+                    href="/api/auth/logout"
                     className={buttonVariants({
                       size: "sm",
                       variant: "ghost",
@@ -70,7 +72,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link
-                  href="/api/aut/register"
+                  href="/api/auth/register"
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",
@@ -79,7 +81,7 @@ const Navbar = () => {
                   Sign Up
                 </Link>
                 <Link
-                  href="/api/aut/register"
+                  href="/api/auth/register"
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",
