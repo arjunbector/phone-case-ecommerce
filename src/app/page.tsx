@@ -7,14 +7,16 @@ import user2 from "@/../public/users/user-2.png";
 import user3 from "@/../public/users/user-3.png";
 import user4 from "@/../public/users/user-4.jpg";
 import user5 from "@/../public/users/user-5.jpg";
+import yourImage from "@/../public/your-image.png";
+import line from "@/../public/line.png";
 import { useTheme } from "next-themes";
-import { useEffect } from "react";
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
+import Phone from "@/components/Phone";
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
   return (
-    <main className="bg-slate-50 dark:bg-slate-950 min-h-screen">
+    <main className="bg-slate-50 dark:bg-[#1E293A] min-h-screen">
       <section>
         <MaxWidthWrapper className="pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
           <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
@@ -77,7 +79,38 @@ export default function Home() {
                     alt="user image"
                   />
                 </div>
+                <div className="flex flex-col justify-between items-center sm:items-start">
+                  <div className="flex gap-0.5">
+                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                  </div>
+                  <p>
+                    <span className="font-semibold">1,500 </span>happy customers
+                  </p>
+                </div>
               </div>
+            </div>
+          </div>
+          <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 h-fit">
+            <div className="relative md:max-w-xl">
+              <Image
+                src={yourImage}
+                alt="arrow"
+                className="absolute w-40 lg:w-52 left-56 -top-20 select-none hidden sm:block lg:hidden xl:block dark:invert"
+              />
+              <Image
+                src={line}
+                alt="line"
+                className="absolute w-20 -left-6 -bottom-6 select-none"
+              />
+              <Phone
+                className="w-64"
+                darkPhone={theme==="dark"}
+                imgSrc="/testimonials/1.jpg"
+              />
             </div>
           </div>
         </MaxWidthWrapper>
