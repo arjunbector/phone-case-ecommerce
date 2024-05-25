@@ -115,6 +115,9 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
       </section>
+      <section className="bg-slate-100 py-24">
+
+      </section>
     </main>
   );
 }

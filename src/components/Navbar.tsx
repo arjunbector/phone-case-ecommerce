@@ -2,8 +2,9 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { ArrowRight, Moon, Sun } from "lucide-react";
-// import { useTheme } from "next-themes";
+import { useTheme } from "next-themes";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import DarkModeToggle from "./ui/DarkModeToggle";
 
 const Navbar = async () => {
 
@@ -26,17 +27,7 @@ const Navbar = async () => {
             case <span className="text-green-600">Cobra</span>
           </Link>
           <div className="h-full flex items-center space-x-4">
-            {/* <button
-              onClick={() => {
-                handleThemeChange();
-              }}
-            >
-              {theme === "light" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </button> */}
+            <DarkModeToggle/>
             {user ? (
               <>
                 <Link
