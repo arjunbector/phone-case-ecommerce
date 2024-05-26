@@ -26,7 +26,7 @@ const Steps = () => {
   const pathname = usePathname();
 
   return (
-    <ol className="rounded-md bg-white lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200">
+    <ol className="rounded-md bg-white dark:bg-gray-900 lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200 dark:border-gray-800">
       {STEPS.map((step, idx) => {
         const isCurrent = pathname.endsWith(step.url);
         const isCompleted = STEPS.slice(idx + 1).some((step) => {
@@ -38,8 +38,8 @@ const Steps = () => {
             <div>
               <span
                 className={cn(
-                  "absolute left-0 top-0 h-full w-1 bg-zinc-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
-                  { "bg-zinc-700": isCurrent, "bg-primary": isCompleted }
+                  "absolute left-0 top-0 h-full w-1 dark:bg-zinc-600 bg-zinc-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full",
+                  { "bg-zinc-700 dark:bg-zinc-300": isCurrent, "bg-primary": isCompleted }
                 )}
                 aria-hidden
               />
@@ -66,7 +66,7 @@ const Steps = () => {
                   <span
                     className={cn("text-sm font-semibold text-zonc-700", {
                       "text-primary": isCompleted,
-                      "text-zinc-700": isCurrent,
+                      "text-zinc-700 dark:text-zinc-300": isCurrent,
                     })}
                   >
                     {step.name}
