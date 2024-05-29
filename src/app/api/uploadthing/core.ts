@@ -32,7 +32,7 @@ export const ourFileRouter = {
             }
             else {
                 const updatedConfiguration = await Configuration.findByIdAndUpdate(configId, {
-                    croppedUrl: file.url,
+                    croppedImageUrl: file.url,
                 })
                 return { configId: updatedConfiguration?._id }
             }
