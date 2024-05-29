@@ -14,7 +14,7 @@ const Phone = ({
   return (
     <div
       className={cn(
-        "relative pointer-events-none z-50 overflow-hidden",
+        "relative pointer-events-none z-20 overflow-hidden",
         className
       )}
       {...props}

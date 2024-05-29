@@ -22,12 +22,17 @@ export const createCheckoutSession = async ({configId}:{configId:string}) => {
     let price = BASE_PRICE;
     if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
     if (material === "polycarbonate") price += PRODUCT_PRICES.material.polycarbonate;
+    console.log("\n\n\n\n\n\n\n\n");
+
     const existingOrder = await Order.findOne({
         userId: user.id,
         configurationId: configuration.id
     })
+    console.log("\n\n\n\n\n\n\n\n");
+    console.log("No existing order");
     let order;
     if (existingOrder) {
+        console.log("\n\n\n\n\n\n\n", user.id, "\n\n\n\n\n\n\n")
         order = existingOrder;
     }
     else {
@@ -43,14 +48,14 @@ export const createCheckoutSession = async ({configId}:{configId:string}) => {
         images: [configuration.imageUrl],
         default_price_data: {
             currency: "INR",
-            unit_amount: price,
+            unit_amount: price*100,
         }
     })
 
     const stripeSession = await stripe.checkout.sessions.create({
         success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
         cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
-        payment_method_types: ["card", "paypal"],
+        payment_method_types: ["card"],
         mode: "payment",
         shipping_address_collection: {allowed_countries: ["IN"]},
         metadata:{

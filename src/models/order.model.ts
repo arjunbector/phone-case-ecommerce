@@ -12,8 +12,7 @@ const orderSchema = new mongoose.Schema({
         ref: 'Configuration',
     },
     userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+        type:String,
     },
     amount:{
         type:Number
