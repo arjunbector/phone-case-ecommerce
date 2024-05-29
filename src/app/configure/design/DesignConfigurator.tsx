@@ -21,7 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, ChevronsUpDownIcon } from "lucide-react";
+import { ArrowRight, Check, ChevronsUpDownIcon, Loader2 } from "lucide-react";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -48,9 +48,11 @@ const DesignConfigurator = ({
 }: DesignConfiguratorProps) => {
   const { toast } = useToast();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutate: saveConfig } = useMutation({
     mutationKey: ["save-config"],
     mutationFn: async (args: saveConfigArgsType) => {
+      setIsLoading(true);
       await Promise.all([saveConfiguration(), _saveConfig(args)]);
     },
     onError: () => {
@@ -392,6 +394,7 @@ const DesignConfigurator = ({
               <Button
                 size="sm"
                 className="w-full"
+                disabled={isLoading}
                 onClick={() => {
                   saveConfig({
                     configId,
@@ -402,7 +405,16 @@ const DesignConfigurator = ({
                   });
                 }}
               >
-                Continue <ArrowRight className="h-4 w-4 ml-1.5 inline" />
+                {isLoading ? (
+                  <span>
+                    <Loader2 className="h-4 w-4 animate-spin"/>
+                  </span>
+                ) : (
+                  <span>
+                    Continue
+                    <ArrowRight className="h-4 w-4 ml-1.5 inline" />
+                  </span>
+                )}
               </Button>
             </div>
           </div>

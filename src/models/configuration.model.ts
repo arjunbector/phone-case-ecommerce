@@ -7,11 +7,6 @@ interface IConfiguration extends Document {
   croppedImageUrl: string;
 }
 
-enum OrderStatus {
-  fullfilled,
-  shipped,
-  awaiting_shipment,
-}
 
 enum PhoneModel {
   iphone11,
