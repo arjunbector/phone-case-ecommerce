@@ -9,14 +9,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
-        console.log("\n\n\n\n\n route hit\n\n\n\n\n")
         const body = await req.text();
         const signature = headers().get("stripe-signature");
         if (!signature) return new Response("Invalid signature", { status: 400 })
 
         const event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
         if (event.type == "checkout.session.completed") {
-            console.log("inside if")
             if (!event.data.object.customer_details?.email) {
                 throw new Error("Missing user email.")
             }
@@ -31,7 +29,6 @@ export async function POST(req: Request) {
             const shippingAddress = session.shipping_details!.address
 
             await connectDB();
-            console.log('\n\n\n\n\n\n\n SAVING ADDRESSES\n\n\n\n\n\n\n')
             const shippingAddressDB = await ShippingAddress.create({
                 name: session.customer_details!.name,
                 city: shippingAddress!.city,
@@ -54,7 +51,6 @@ export async function POST(req: Request) {
                 shippingAddress: shippingAddressDB._id,
                 billingAddress: billingAddressDB._id,
             },{new:true});
-            console.log(order);
 
 
         }
