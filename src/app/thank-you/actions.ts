@@ -12,7 +12,7 @@ export const getPaymentStatus = async ({ orderId }: { orderId: string }) => {
     }
 
     connectDB();
-    const order = await Order.findOne({ _id: orderId, userId: user.id }).populate({ path: "configurationId" }).populate({ path: "shippingAddress" }).populate({ path: "billingAddress" });
+    const order = await Order.findOne({ _id: orderId, userId: user.id }).populate("configurationId").populate("shippingAddress").populate("billingAddress");
     if (!order) throw new Error("This order does not exist.");
     if (order.isPaid) {
         return order;
