@@ -40,7 +40,7 @@ export async function POST(req: Request) {
                 street: shippingAddress!.line1,
                 state: shippingAddress!.state,
             })
-
+            
             const billingAddressDB = await BillingAddress.create({
                 name: session.customer_details!.name,
                 city: billingAddress!.city,
@@ -53,7 +53,8 @@ export async function POST(req: Request) {
                 isPaid: true,
                 shippingAddress: shippingAddressDB._id,
                 billingAddress: billingAddressDB._id,
-            });
+            },{new:true});
+            console.log(order);
 
 
         }
