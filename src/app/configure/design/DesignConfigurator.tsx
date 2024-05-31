@@ -153,7 +153,7 @@ const DesignConfigurator = ({
         ref={containerRef}
         className="relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-200 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
-        <div className="relative w-60 bg-opacity-50 pointer-events-none aspect-[896/1831]">
+        <div className="relative w-60 bg-opacity-50 dark:bg-opacity-80 pointer-events-none aspect-[896/1831]">
           <AspectRatio
             ref={phoneCaseRef}
             className="pointer-events-none relative z-50 aspect-[896/1831] w-full"
@@ -215,11 +215,11 @@ const DesignConfigurator = ({
         </Rnd>
       </div>
 
-      <div className="h-[37.5rem] w-full col-span-full md:col-span-1 flex flex-col bg-white">
+      <div className="h-[37.5rem] w-full col-span-full md:col-span-1 flex flex-col bg-white dark:bg-slate-700">
         <ScrollArea className="relative flex-1 overflow-auto">
           <div
             aria-hidden
-            className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white pointer-events-none"
+            className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white dark:from-[#1E293A] pointer-events-none"
           />
           <div className="px-8 pb-12 pt-8">
             <h2 className="tracking-tight font-bold text-3xl">
@@ -269,7 +269,7 @@ const DesignConfigurator = ({
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-full justify-between"
+                        className="w-full justify-between dark:bg-slate-900"
                       >
                         {options.model.label}
                         <ChevronsUpDownIcon
@@ -282,14 +282,14 @@ const DesignConfigurator = ({
                         />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="z-10 bg-white">
+                    <DropdownMenuContent className="z-10 bg-white dark:bg-[#1E293A]">
                       {MODELS.options.map((model) => (
                         <DropdownMenuItem
                           key={model.label}
                           className={cn(
-                            "flex text-sm gap-1 items-center py-1.5 px-4 cursor-default hover:bg-zinc-100",
+                            "flex text-sm gap-1 items-center py-1.5 px-4 cursor-default hover:bg-zinc-100 dark:hover:bg-zinc-700",
                             {
-                              "bg-zinc-100":
+                              "bg-zinc-100 dark:bg-zinc-700":
                                 model.label === options.model.label,
                             }
                           )}
@@ -336,7 +336,7 @@ const DesignConfigurator = ({
                             value={selectableOption}
                             className={({ active, checked }) =>
                               cn(
-                                "relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zonc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between",
+                                "relative block cursor-pointer rounded-lg bg-white dark:bg-slate-700 px-6 py-4 shadow-sm border-2 border-zonc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between",
                                 {
                                   "border-primary": active || checked,
                                 }
@@ -347,14 +347,14 @@ const DesignConfigurator = ({
                               <span className="flex flex-col text-sm">
                                 <RadioGroup.Label
                                   as="span"
-                                  className="font-medium text-gray-900"
+                                  className="font-medium text-gray-900 dark:text-gray-100"
                                 >
                                   {selectableOption.label}
                                 </RadioGroup.Label>
                                 {selectableOption.description && (
                                   <RadioGroup.Description
                                     as="span"
-                                    className="text-gray-500"
+                                    className="text-gray-500 dark:text-gray-300"
                                   >
                                     <span className="block sm:inline">
                                       {selectableOption.description}
@@ -367,7 +367,7 @@ const DesignConfigurator = ({
                               as="span"
                               className="mt-2 flex text-sm sm:ml-4 sm:mt-0 sm:flex-col sm:text-right"
                             >
-                              <span className="cont-medium text-gray-900">
+                              <span className="cont-medium text-gray-900 dark:text-gray-100">
                                 {formatPrice(selectableOption.price)}
                               </span>
                             </RadioGroup.Description>
@@ -382,7 +382,7 @@ const DesignConfigurator = ({
           </div>
         </ScrollArea>
 
-        <div className="w-full px-8 h-16 bg-white">
+        <div className="w-full px-8 h-16 bg-white dark:bg-[#1E293A]">
           <div className="h-px w-full bg-zinc-200" />
           <div className="w-full h-full flex justify-end items-center">
             <div className="w-full flex gap-6 items-center">

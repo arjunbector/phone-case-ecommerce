@@ -19,12 +19,15 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModal from "@/components/configure/LoginModal";
+import { useTheme } from "next-themes";
 const DesignPreview = ({ config }: { config: any }) => {
   const router = useRouter();
   const { toast } = useToast();
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const { user } = useKindeBrowserClient();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {theme} = useTheme();
 
   useEffect(() => {
     setShowConfetti(true);
@@ -57,6 +60,7 @@ const DesignPreview = ({ config }: { config: any }) => {
   });
   const handleCheckout = () => {
     if (user) {
+      setIsLoading(true);
       // create payment session
       createPaymentSession({ configId: config._id });
     } else {
@@ -81,12 +85,12 @@ const DesignPreview = ({ config }: { config: any }) => {
         <div className="sm:col-span-4 md:col-span-3 md:row-span-2 md:row-end-2">
           <Phone
             imgSrc={config.croppedImageUrl}
-            darkPhone={false}
+            darkPhone={theme==="dark"}
             className={cn(`bg-${tw}`)}
           />
         </div>
         <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">
-          <h3 className="text-3xl font-bold tracking-tight text-gray-900">
+          <h3 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
             Your {modelLabel} Case
           </h3>
           <div className="mt-3 flex items-center gap-1.5 text-base">
@@ -95,10 +99,10 @@ const DesignPreview = ({ config }: { config: any }) => {
           </div>
         </div>
         <div className="sm:col-span-12 md:col-span-9 text-base">
-          <div className="grid grid-cols-1 gap-y-8 border-b border-gray-200 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10">
+          <div className="grid grid-cols-1 gap-y-8 border-b border-gray-200 dark:border-gray-500 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10">
             <div>
-              <p className="font-medium text-zinc-950">Highlights</p>
-              <ol className="mt-3 text-zinc-700 list-disc list-inside">
+              <p className="font-medium text-zinc-950 dark:text-zinc-50">Highlights</p>
+              <ol className="mt-3 text-zinc-700 dark:text-zinc-300 list-disc list-inside">
                 <li>Wireless Charging compatible</li>
                 <li>TPU shock absorption</li>
                 <li>Packaging made from recycled materials</li>
@@ -106,26 +110,26 @@ const DesignPreview = ({ config }: { config: any }) => {
               </ol>
             </div>
             <div>
-              <p className="font-medium text-zinc-950">Material</p>
-              <ol className="mt-3 text-zinc-700 list-disc list-inside">
+              <p className="font-medium text-zinc-950 dark:text-zinc-50">Material</p>
+              <ol className="mt-3 text-zinc-700 dark:text-zinc-300 list-disc list-inside">
                 <li>High quality durable material</li>
                 <li>Scratch and fingerprint resistant coating</li>
               </ol>
             </div>
           </div>
           <div className="mt-8">
-            <div className="bg-gray-50 p-6 sm:rounded-lg sm:p-8">
+            <div className="bg-gray-50 dark:bg-gray-900 p-6 sm:rounded-lg sm:p-8">
               <div className="flow-root text-sm">
                 <div className="flex items-center justify-between py-1 mt-2">
-                  <p className="text-gray-600">Base Price</p>
-                  <p className="font-medium text-gray-900">
+                  <p className="text-gray-600 dark:text-gray-400">Base Price</p>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">
                     {formatPrice(BASE_PRICE)}
                   </p>
                 </div>
                 {finish === "textured" && (
                   <div className="flex items-center justify-between py-1 mt-2">
-                    <p className="text-gray-600">Textured Finish</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="text-gray-600 dark:text-gray-400">Textured Finish</p>
+                    <p className="font-medium text-gray-900 dark:text-gray-100">
                       {formatPrice(PRODUCT_PRICES.finish.textured)}
                     </p>
                   </div>
@@ -133,15 +137,15 @@ const DesignPreview = ({ config }: { config: any }) => {
                 {material === "polycarbonate" && (
                   <div className="flex items-center justify-between py-1 mt-2">
                     <p className="text-gray-600">Soft Polycarbonate Material</p>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-gray-900 dark:text-gray-100">
                       {formatPrice(PRODUCT_PRICES.material.polycarbonate)}
                     </p>
                   </div>
                 )}
-                <div className="my-2 h-px bg-gray-200" />
+                <div className="my-2 h-px bg-gray-200 dark:bg-gray-700" />
                 <div className="flex items-center justify-between py-2">
-                  <p className="font-semibold text-gray-900">Order total</p>
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">Order total</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">
                     {formatPrice(totalPrice)}
                   </p>
                 </div>
@@ -149,13 +153,20 @@ const DesignPreview = ({ config }: { config: any }) => {
             </div>
             <div className="mt-8 flex justify-end pb-12">
               <Button
+                disabled={isLoading}
                 onClick={() => {
                   handleCheckout();
                 }}
                 className="px-4 sm:px-6 lg:px-8"
               >
-                Checkout{" "}
-                <ArrowRight className="h-4 w-4 shrink-0 ml-1.5 inline" />
+                {isLoading ? (
+                  "Processing..."
+                ) : (
+                  <>
+                    {"Checkout "}{" "}
+                    <ArrowRight className="h-4 w-4 shrink-0 ml-1.5 inline" />
+                  </>
+                )}
               </Button>
             </div>
           </div>
