@@ -4,33 +4,37 @@ enum OrderStatus {
     fullfilled,
     shipped,
     awaiting_shipment,
-  }
+}
 
 const orderSchema = new mongoose.Schema({
-    configurationId:{
+    configurationId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Configuration',
     },
-    userId:{
-        type:String,
+    userId: {
+        type: String,
     },
-    amount:{
-        type:Number
+    amount: {
+        type: Number
     },
-    isPaid:{
-        type:Boolean
+    isPaid: {
+        type: Boolean
     },
-    status:{
-        type:String,
-        enum:Object.values(OrderStatus),
+    status: {
+        type: String,
+        enum: Object.values(OrderStatus),
+        default: "awaiting_shipment"
     },
-    shippingAdress:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"ShippingAddress",
-        defalut:"awaiting_shipment"
+    shippingAddress: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "ShippingAddress",
+    },
+    billingAddress: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "BillingAddress",
     }
-},  {timestamps:true})
+}, { timestamps: true })
 
-const Order = mongoose.models.Order || mongoose.model('Order', orderSchema);    
+const Order = mongoose.models.Order || mongoose.model('Order', orderSchema);
 export default Order;
 

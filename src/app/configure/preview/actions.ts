@@ -22,17 +22,13 @@ export const createCheckoutSession = async ({configId}:{configId:string}) => {
     let price = BASE_PRICE;
     if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
     if (material === "polycarbonate") price += PRODUCT_PRICES.material.polycarbonate;
-    console.log("\n\n\n\n\n\n\n\n");
 
     const existingOrder = await Order.findOne({
         userId: user.id,
         configurationId: configuration.id
     })
-    console.log("\n\n\n\n\n\n\n\n");
-    console.log("No existing order");
     let order;
     if (existingOrder) {
-        console.log("\n\n\n\n\n\n\n", user.id, "\n\n\n\n\n\n\n")
         order = existingOrder;
     }
     else {

@@ -13,7 +13,7 @@ export const getAuthStatus = async () => {
     }
 
     connectDB();
-    const existingUser = await User.findOne({ email: user.id });
+    const existingUser = await User.findOne({ email: user.email });
     if (!existingUser) {
         const newUser = await User.create({
             _id: user.id,
