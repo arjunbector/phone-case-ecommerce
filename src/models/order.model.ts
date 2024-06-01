@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import ShippingAddress from "./shipping-address.model";
+import BillingAddress from "./billing-address.model";
 
 enum OrderStatus {
     fullfilled,
@@ -27,11 +29,11 @@ const orderSchema = new mongoose.Schema({
     },
     shippingAddress: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ShippingAddress",
+        ref: ShippingAddress,
     },
     billingAddress: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "BillingAddress",
+        ref: BillingAddress,
     }
 }, { timestamps: true })
 
