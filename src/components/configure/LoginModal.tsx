@@ -24,17 +24,17 @@ const LoginModal = ({
               fill
             />
           </div>
-          <DialogTitle className="text-3xl text-center font-bold tracking-tight text-gray-900">
+          <DialogTitle className="text-3xl text-center font-bold tracking-tight text-gray-900 dark:text-gray-100">
             Log in to continue
           </DialogTitle>
           <DialogDescription className="text-base text-center py-2">
-            <span className="font-medium text-zonc-900">
+            <span className="font-medium text-zinc-900 dark:zinc-100">
               Your configuration was saved!
             </span>{" "}
             Please log in or create an account to complete your purchase
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-2 gap-6 divide-x divide-gray-200">
+        <div className="grid grid-cols-2 gap-6 divide-x divide-gray-200 dark:divide-gray-800">
           <LoginLink className={buttonVariants({variant:"outline"})}>Login</LoginLink>
           <RegisterLink className={buttonVariants({variant:"default"})}>Register</RegisterLink>
         </div>
