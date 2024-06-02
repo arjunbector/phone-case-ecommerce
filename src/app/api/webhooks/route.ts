@@ -6,7 +6,10 @@ import BillingAddress from "@/models/billing-address.model";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
+import { Resend } from "resend"
+import OrderReceived from "@/components/email/OrderReceived";
 
+const resend = new Resend(process.env.RESEND_API_KEY)
 export async function POST(req: Request) {
     try {
         const body = await req.text();
@@ -37,7 +40,7 @@ export async function POST(req: Request) {
                 street: shippingAddress!.line1,
                 state: shippingAddress!.state,
             })
-            
+
             const billingAddressDB = await BillingAddress.create({
                 name: session.customer_details!.name,
                 city: billingAddress!.city,
@@ -46,13 +49,35 @@ export async function POST(req: Request) {
                 street: billingAddress!.line1,
                 state: billingAddress!.state,
             })
-            const order = await Order.findByIdAndUpdate({_id:orderId}, {
+            const order = await Order.findByIdAndUpdate({ _id: orderId }, {
                 isPaid: true,
                 shippingAddress: shippingAddressDB._id,
                 billingAddress: billingAddressDB._id,
-            },{new:true});
-
-
+            }, { new: true });
+            await resend.emails.send({
+                from: "CaseCobra <arjunbector@gmail.com>",
+                to: [event.data.object.customer_details.email],
+                subject: "Thanks for your order!",
+                react: OrderReceived({
+                    orderId: orderId,
+                    orderDate: order.createdAt.toLocaleDateString(),
+                    
+                    shippingAddress: {
+                        //@ts-ignore
+                        name: session.customer_details!.name,
+                        //@ts-ignore
+                        city: shippingAddress!.city,
+                        //@ts-ignore
+                        country: shippingAddress!.country,
+                        //@ts-ignore
+                        postalCode: shippingAddress!.postal_code,
+                        //@ts-ignore
+                        street: shippingAddress!.line1,
+                        //@ts-ignore
+                        state: shippingAddress!.state,
+                    }
+                })
+            })
         }
         return NextResponse.json({
             result: event,
