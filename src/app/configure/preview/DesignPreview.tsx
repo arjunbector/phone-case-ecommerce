@@ -77,7 +77,7 @@ const DesignPreview = ({ config }: { config: any }) => {
       >
         <Confetti
           active={showConfetti}
-          config={{ elementCount: 500, spread: 90 }}
+          config={{ elementCount: 500, spread: 360, startVelocity: 40}}
         />
       </div>
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
