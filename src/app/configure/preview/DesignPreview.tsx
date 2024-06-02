@@ -10,7 +10,7 @@ import {
   MODELS,
 } from "@/validators/option-validator";
 import { cn, formatPrice } from "@/lib/utils";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Info } from "lucide-react";
 import { BASE_PRICE, PRODUCT_PRICES } from "@/config/products";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
@@ -27,7 +27,7 @@ const DesignPreview = ({ config }: { config: any }) => {
   const { user } = useKindeBrowserClient();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     setShowConfetti(true);
@@ -77,7 +77,7 @@ const DesignPreview = ({ config }: { config: any }) => {
       >
         <Confetti
           active={showConfetti}
-          config={{ elementCount: 500, spread: 360, startVelocity: 40}}
+          config={{ elementCount: 500, spread: 360, startVelocity: 40 }}
         />
       </div>
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
@@ -85,7 +85,7 @@ const DesignPreview = ({ config }: { config: any }) => {
         <div className="md:col-span-3 lg:col-span-3 md:row-span-4 md:row-end-2">
           <Phone
             imgSrc={config.croppedImageUrl}
-            darkPhone={theme==="dark"}
+            darkPhone={theme === "dark"}
             className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
           />
         </div>
@@ -101,7 +101,9 @@ const DesignPreview = ({ config }: { config: any }) => {
         <div className="sm:col-span-12 md:col-span-9 text-base">
           <div className="grid grid-cols-1 gap-y-8 border-b border-gray-200 dark:border-gray-500 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10">
             <div>
-              <p className="font-medium text-zinc-950 dark:text-zinc-50">Highlights</p>
+              <p className="font-medium text-zinc-950 dark:text-zinc-50">
+                Highlights
+              </p>
               <ol className="mt-3 text-zinc-700 dark:text-zinc-300 list-disc list-inside">
                 <li>Wireless Charging compatible</li>
                 <li>TPU shock absorption</li>
@@ -110,7 +112,9 @@ const DesignPreview = ({ config }: { config: any }) => {
               </ol>
             </div>
             <div>
-              <p className="font-medium text-zinc-950 dark:text-zinc-50">Material</p>
+              <p className="font-medium text-zinc-950 dark:text-zinc-50">
+                Material
+              </p>
               <ol className="mt-3 text-zinc-700 dark:text-zinc-300 list-disc list-inside">
                 <li>High quality durable material</li>
                 <li>Scratch and fingerprint resistant coating</li>
@@ -128,7 +132,9 @@ const DesignPreview = ({ config }: { config: any }) => {
                 </div>
                 {finish === "textured" && (
                   <div className="flex items-center justify-between py-1 mt-2">
-                    <p className="text-gray-600 dark:text-gray-400">Textured Finish</p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Textured Finish
+                    </p>
                     <p className="font-medium text-gray-900 dark:text-gray-100">
                       {formatPrice(PRODUCT_PRICES.finish.textured)}
                     </p>
@@ -144,12 +150,22 @@ const DesignPreview = ({ config }: { config: any }) => {
                 )}
                 <div className="my-2 h-px bg-gray-200 dark:bg-gray-700" />
                 <div className="flex items-center justify-between py-2">
-                  <p className="font-semibold text-gray-900 dark:text-gray-100">Order total</p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">
+                    Order total
+                  </p>
                   <p className="font-semibold text-gray-900 dark:text-gray-100">
                     {formatPrice(totalPrice)}
                   </p>
                 </div>
               </div>
+            </div>
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 bg-gray-50 dark:bg-gray-900 p-2 my-2 sm:rounded-lg sm:p-2">
+              <Info className="h-4 w-4" />
+              <p>
+                Use card number{" "}
+                <span className="font-semibold">4242 4242 4242 4242</span> while
+                making the payment.
+              </p>
             </div>
             <div className="mt-8 flex justify-end pb-12">
               <Button
