@@ -36,6 +36,7 @@ export function constructMetadata({
       images:[image],
       creator:"@arjunbector"
     },
-    icons
+    icons,
+    metadataBase: new URL("https://phone-case-ecommerce.vercel.app")
   }
 }
